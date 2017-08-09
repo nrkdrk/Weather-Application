@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="nd.yazilim.weather">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher_dark"
+        android:label="@string/app_name"
+        android:screenOrientation="portrait"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name="nd.yazilim.weather.activity.GlobalActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="nd.yazilim.weather.activity.AboutActivity"
+            android:label="About"
+            android:parentActivityName="nd.yazilim.weather.activity.WeatherActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nd.yazilim.weather.activity.WeatherActivity" />
+        </activity>
+        <activity
+            android:name="nd.yazilim.weather.activity.WeatherActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name="nd.yazilim.weather.activity.FirstLaunch"
+            android:label="Enter City" />
+
+        <receiver android:name="nd.yazilim.weather.receiver.MyReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
+        <service android:name="nd.yazilim.weather.service.CurrentWeatherService"
+            android:enabled="true"/>
+        <service android:name="nd.yazilim.weather.service.MyAlarmService"
+            android:enabled="true"/>
+
+        <receiver android:name="nd.yazilim.weather.widget.SmallWidgetProvider" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                android:resource="@xml/small_widget_info" />
+        </receiver>
+
+        <receiver android:name="nd.yazilim.weather.widget.LargeWidgetProvider" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                android:resource="@xml/large_widget_info" />
+        </receiver>
+
+        <receiver android:name="nd.yazilim.weather.receiver.StartupReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>
